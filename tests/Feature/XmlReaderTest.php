@@ -375,8 +375,7 @@ test('can use xpath to find an element', function () {
 
     $bestSellers = $reader->xpathValue('/breakfast_menu/food[@bestSeller="true"]');
 
-    expect($bestSellers)->toBeInstanceOf(Query::class);
-    expect($bestSellers)->not->toBeInstanceOf(LazyQuery::class);
+    expect($bestSellers)->toBeInstanceOf(LazyQuery::class);
 
     expect($bestSellers->get())->toEqual([
         [
@@ -397,8 +396,7 @@ test('can use xpath to find an element', function () {
 
     $berryBerryWaffles = $reader->xpathElement('/breakfast_menu/food[3]');
 
-    expect($berryBerryWaffles)->toBeInstanceOf(Query::class);
-    expect($berryBerryWaffles)->not->toBeInstanceOf(LazyQuery::class);
+    expect($berryBerryWaffles)->toBeInstanceOf(LazyQuery::class);
 
     expect($berryBerryWaffles->sole())->toEqual(
         Element::make()->setAttributes(['soldOut' => 'false', 'bestSeller' => 'true'])->setContent([

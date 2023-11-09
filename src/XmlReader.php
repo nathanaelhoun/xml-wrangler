@@ -281,7 +281,7 @@ class XmlReader
      * @throws \Throwable
      * @throws \VeeWee\Xml\Encoding\Exception\EncodingException
      */
-    public function xpathElement(string $query): Query
+    public function xpathElement(string $query): LazyQuery
     {
         try {
             $xml = $this->reader->provide(Matcher\document_element())->current();
@@ -318,7 +318,7 @@ class XmlReader
                 }
             };
 
-            return new Query($query, $generator());
+            return new LazyQuery($query, $generator());
         } catch (Throwable $throwable) {
             $this->__destruct();
 
@@ -358,13 +358,13 @@ class XmlReader
      * @throws \Throwable
      * @throws \VeeWee\Xml\Encoding\Exception\EncodingException
      */
-    public function xpathValue(string $query): Query
+    public function xpathValue(string $query): LazyQuery
     {
         $generator = function () use ($query) {
             yield from $this->xpathElement($query)->get();
         };
 
-        return new Query($query, $this->convertElementArrayIntoValues($generator()));
+        return new LazyQuery($query, $this->convertElementArrayIntoValues($generator()));
     }
 
     /**
